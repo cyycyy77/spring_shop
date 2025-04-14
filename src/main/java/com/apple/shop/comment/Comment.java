@@ -13,14 +13,12 @@ import lombok.ToString;
 public class Comment {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String username; // member username?
+
+    private String username;
+
     @Column(length = 1000)
     private String content;
-    private Long parentId; // member Id? no, item id (댓글은 아이템 페이지에 적으니까)
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "parentId") // comment 테이블에 member_id 칼럼이 생김
-//    private Member member;
-
+    private Long parentId;
 
 }

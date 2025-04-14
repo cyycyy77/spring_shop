@@ -34,7 +34,6 @@ public class ItemController {
         return "list.html";
     }
 
-    // 로그인 상태에서만 작성 가능하도록?
     @GetMapping("/write")
     String write(Authentication auth) {
         if (auth == null){
@@ -43,6 +42,7 @@ public class ItemController {
         return "write.html";
     }
 
+    //지워도 되나? 어디에 사용되지 service까지 나눠놨으면 쓰는거 아닌가
     @PostMapping("/add")
     String addPost(Map formData) {
         itemService.addPost(formData);
