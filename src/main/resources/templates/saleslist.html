@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link href="/main.css" rel="stylesheet">
+
+</head>
+<body>
+
+<div th:replace="~{ nav.html::navbar }"></div>
+
+<form action="search" method="POST">
+  <input name="searchText" style="display : inline">
+  <button>검색</button>
+</form>
+
+<div class="card" th:each="s : ${sales}">
+  <div>
+    <h4 th:text="${s.itemName}" >상품 이름</h4>
+    <p th:text="${s.price}">상품 가격</p>
+    <p th:text="${s.count}">상품 개수</p>
+<!--    <p th:text="${s.memberId}">유저아이디</p>-->
+    <p th:text="${s.member.id}">유저아이디</p>
+    <p th:text="${s.member.username}">유저이름</p>
+<!--    그냥 아예 s.member를 적으면 member table을 가져다 쓸 수 있네...-->
+<!--    그럼 댓글 같은것도 아이템을 외래키로 엮어버리면 아예 다른 페이지에 댓글을 보여줄수 있겠네.-->
+
+  </div>
+</div>
+
+
+</body>
+</html>

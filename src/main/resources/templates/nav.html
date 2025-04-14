@@ -1,0 +1,29 @@
+<div class="nav" th:fragment="navbar">
+    <a class="logo">SpringMall</a>
+    <a href="/">Mainpage</a>
+    <a href="/list">List</a>
+    <a href="/write">Write</a>
+
+<!--    <span sec:authentication="principal.username"></span>-->
+
+<!--    로그인 되어있을때만 id 출력하기-->
+    <div sec:authorize="isAuthenticated()">
+        <a sec:authentication="principal.username"></a>
+<!--        <a th:href="@{ '/logout' }">logout</a>-->
+        <a href="/logout">Logout</a>
+    </div>
+    <div sec:authorize="isAnonymous()">
+        <h4>로그아웃되어있음</h4>
+        <a href="/login">Login</a>
+        <a href="/register">Register</a>
+    </div>
+
+<!--    위의 내용을 if unless문으로 바꿔 쓰면-->
+<!--    <div th:if="${#authorization.expression('isAuthenticated()')}">-->
+<!--        <a th:text="${#authentication.name}"></a>-->
+<!--    </div>-->
+<!--    &lt;!&ndash; 사용자가 인증되지 않은 경우 &ndash;&gt;-->
+<!--    <div th:unless="${#authorization.expression('isAuthenticated()')}">-->
+<!--        <h4>로그아웃되어있음</h4>-->
+<!--    </div>-->
+</div>
