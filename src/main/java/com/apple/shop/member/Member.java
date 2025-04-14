@@ -24,7 +24,6 @@ public class Member {
     private String password;
     private String displayName;
 
-//    @OneToMany(mappedBy = "컬럼명")
     @OneToMany(mappedBy = "member")
     @ToString.Exclude
     private List<Sales> sales = new ArrayList<>();
