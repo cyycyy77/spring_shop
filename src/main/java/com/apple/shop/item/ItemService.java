@@ -16,21 +16,6 @@ public class ItemService {
 
     private final ItemRepository itemRepository;
 
-//    public void saveItem(String title, Integer price , String username, Authentication auth) {
-//        if (price < 0) {
-//            throw new RuntimeException("가격은 양수여야함");
-//        } else if (title.length() > 255) {
-//            throw new RuntimeException("너무 긺");
-//        } else {
-//            Item item = new Item();
-//            item.setTitle(title);
-//            item.setPrice(price);
-//            username = auth.getName();
-//            item.setUserid(username);
-//            itemRepository.save(item);
-//        }
-//    }
-
     public void saveItem(String title, Integer price , String username, String imgUrl, Authentication auth, Integer count) {
         if (price < 0) {
             throw new RuntimeException("가격은 양수여야함");
@@ -45,36 +30,15 @@ public class ItemService {
             username = auth.getName();
             item.setUserid(username);
             item.setImgUrl(imgUrl);
-
-//            item.setCount(10);
             item.setCount(count);
             itemRepository.save(item);
         }
     }
 
-
-
-    public void updateItem(@PathVariable Long id, String title, Integer price) {
-        if (title == null || title.trim().isEmpty()) {
-            throw new IllegalArgumentException("제목을 입력하세요.");
-        }
-        if (title.length() > 255) {
-            throw new IllegalArgumentException("제목이 너무 깁니다.");
-        }
-        if (price == null || price < 0) {
-            throw new IllegalArgumentException("가격은 0 이상이어야 합니다.");
-        }
-        Item item = new Item();
-        item.setTitle(title);
-        item.setPrice(price);
-        itemRepository.save(item);
-    }
-
+    //지워도 될듯
     public void addPost(Map formData) {
         System.out.println(formData);
-//        var test = new HashMap<>();
-        HashMap<String, Object> test = new HashMap<>(); // 그냥 자료형 소개
-        // key의 type (보통 string), value의 type
+        HashMap<String, Object> test = new HashMap<>();
         test.put("name", "kim");
         test.put("age", 20);
         System.out.println(test.get("name"));
@@ -83,7 +47,7 @@ public class ItemService {
     public void editItem(@RequestParam Long id,
                          @RequestParam String title,
                          @RequestParam Integer price,
-                         @RequestParam Integer count) { //@RequestParm은 생략가능
+                         @RequestParam Integer count) {
         if (title == null || title.trim().isEmpty()) {
             throw new IllegalArgumentException("제목을 입력하세요.");
         }

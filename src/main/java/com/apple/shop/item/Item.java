@@ -29,8 +29,11 @@ public class Item {
     }
 
     private Integer price;
+
     private String userid;
+
     private String imgUrl;
+
     private Integer count;
 
 }

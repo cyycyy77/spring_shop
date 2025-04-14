@@ -24,27 +24,16 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CommentController {
 
-//    private final MemberRepository memberRepository;
     private final CommentRepository commentRepository;
-//    private final ItemRepository itemRepository; // 댓글 작성후 redirect를 위해서
+    private final CommentService commentService;
 
     @PostMapping("/commentsave")
     public String saveComment(
             @RequestParam String content,
             @RequestParam Long parentId, Authentication auth) {
-        Comment comment = new Comment();
-        CustomUser user = (CustomUser) auth.getPrincipal();
-        comment.setUsername(user.getUsername());
-        comment.setContent(content);
-        comment.setParentId(parentId);
-//        Optional<Member> member = memberRepository.findByUsername(username);
-////        if (member.isPresent()) {
-////            // 실제 Member 객체를 꺼내서 세팅
-////            comment.setMember(member.get());
-////        }
-//        comment.setMember(member.get());
-        commentRepository.save(comment);
-//        return "redirect:/list"; // 댓글창(/detail/{id})으로 redirect
+
+        commentService.saveComment(content,parentId, auth);
+
         return "redirect:/detail/" + parentId;
     }
 
