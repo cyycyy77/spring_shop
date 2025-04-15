@@ -15,45 +15,17 @@
 
 <div class="detail">
     <h4>상세페이지</h4>
-<!--    if data(item)의 imgUrl이 null이 아니라면 사진 출력, null이면 그냥 원래 placehold 출력-->
-<!--    <img th:src="${data.imgUrl}">-->
-<!--    <img src="https://placehold.co/300">-->
     <img th:src="${data.imgUrl != null} ? ${data.imgUrl} : 'https://placehold.co/300'">
     <h4 th:text="${data.title}">금도금바지</h4>
     <p th:text="${data.price + '원'}">7억</p>
     <p th:text="${data.count + '개'}">개수</p>
 </div>
 
-<!--<div class="detail" th:if="${item != null}">-->
-<!--    <h4>상세페이지</h4>-->
-<!--    <img src="https://placehold.co/300">-->
-<!--    <h4 th:text="${item.title}">제목</h4>  &lt;!&ndash; ✅ 제목 출력 &ndash;&gt;-->
-<!--    <p th:text="${item.price} + '원'">가격</p>  &lt;!&ndash; ✅ 가격 출력 &ndash;&gt;-->
-<!--</div>-->
-<!--<p th:if="${error != null}" th:text="${error}"></p>  &lt;!&ndash; ✅ 상품이 없을 경우 메시지 표시 &ndash;&gt;-->
-<!--<script>✅ db에서 이미지 가져와서 넣는 script 코드-->
-<!--    if ( /*[[${data.imgUrl}]]*/ != null){-->
-<!--        document.querySelector('img').src = /*[[${data.imgUrl}]]*/-->
-<!--    } else {-->
-<!--        document.querySelector('img').src = "https://placehold.co/300"-->
-<!--    }-->
-<!--</script>-->
-
-<!--<div th:replace="~{ writecomment.html::comment }"></div>-->
-<!--<form action="/commentsave" method="POST">-->
-<!--    <input name="content">-->
-<!--&lt;!&ndash;    <input type="hidden" name="parentId" th:value="${data.id}">&ndash;&gt;-->
-<!--    <input style="display:none" name="parentId" th:value="${data.id}">-->
-<!--    <button type="submit">작성</button>-->
-<!--</form>-->
-
 <div sec:authorize="isAuthenticated()">
     <form action="/order" method="POST">
         <input style="display:none" name="itemName" th:value="${data.title}">
         <input style="display:none" name="price" th:value="${data.price}">
         <input name="count" type="number" min="0" max="10" step="1">
-<!--        구매 가능한 최대 개수를 item의 현재 count 수로?-->
-<!--        <input name="memberId"> id는 auth 이걸로 받아오는게 나을듯-->
         <input style="display:none" name="id" th:value="${data.id}">
         <button type="submit">구매</button>
     </form>
@@ -62,8 +34,6 @@
     <h4>로그인 해야 구매할 수 있음</h4>
 </div>
 
-
-<!--예를 들어 관리자라면, 댓글을 삭제할 수 있도록(댓글 삭제 버튼이 보이도록) 할 수 있겠지-->
 <div sec:authorize="isAuthenticated()">
     <form action="/commentsave" method="POST">
         <input name="content">
