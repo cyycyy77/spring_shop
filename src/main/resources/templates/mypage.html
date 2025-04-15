@@ -13,16 +13,11 @@
 <div th:replace="~{ nav.html::navbar }"></div>
 
 <h4>마이페이지</h4>
-
 <div sec:authentication="principal"></div>
 <div sec:authentication="principal.username"></div>
-
 <div sec:authorize="hasAuthority('일반유저')">
     <h4>일반유저임</h4>
 </div>
-<!--특정 권한이 있는지 아닌지를 알 수 있음-->
-<!--myuserdetailsservice에서 특정 유저에게 관리자 권한을 주고-->
-<!--관리자일때만 어떤 페이지를 보여주는 것도 가능-->
 
 <div sec:authorize="isAuthenticated()">
     <h4>로그인되었음</h4>
@@ -31,8 +26,6 @@
 <div sec:authorize="isAnonymous()">
     <h4>로그아웃되어있음</h4>
 </div>
-
-
 
 </body>
 </html>

@@ -14,7 +14,7 @@
 <div th:replace="~{ nav.html::navbar }"></div>
 
 <form action="search" method="POST">
-    <input name="searchText" style="display : inline">
+    <input name="searchText" type="display : inline">
     <button>검색</button>
 </form>
 
@@ -26,7 +26,6 @@
         <p th:text="${i.price}">가격</p>
         <p th:text="${i.userid}">유저아이디</p>
         <a th:href="@{ '/edit/' + ${i.id} }">✏️</a>
-
         <span th:onclick="fetch('/item?id=[[${i.id}]]', { method : 'DELETE' })
                 .then(r=>r.text())
                 .then(() => {

@@ -13,17 +13,10 @@
 <div th:replace="~{ nav.html::navbar }"></div>
 
 <form action="/item/update/{id}" method="post">
-<!--    <input type="hidden" name="_method" value="patch">-->
-<!--    <input name="id">-->
     <input th:text="${item.title}">
     <input th:text="${item.price}">
-
     <button type="submit">수정</button>
-
 </form>
-
-
-
 
 </body>
 </html>

@@ -19,8 +19,6 @@
     </form>
 
     <div class="card" th:each="i : ${items}">
-<!--        <img th:src="${i.imgUrl != null ? i.imgUrl : 'https://placehold.co/300'}">-->
-<!--        null인 경우 뿐 아니라 빈 문자열인 경우도 걸러줘야 함-->
         <img th:src="${(i.imgUrl != null and !#strings.isEmpty(i.imgUrl)) ? i.imgUrl : 'https://placehold.co/300'}">
         <div>
             <h4 th:text="${i.title}" >제목</h4>
@@ -38,10 +36,6 @@
         </div>
     </div>
 
-<!--    <button class="btn">버튼</button>-->
-
-
-
     <div>
         <span th:if="${pages > 1}">
             <a class="btn" th:href="@{ '/list/page/' + ${pages-1} }">이전페이지</a>
@@ -55,7 +49,6 @@
             <a class="btn" th:href="@{ '/list/page/' + ${pages+1} }">다음페이지</a>
         </span>
     </div>
-
 
 </body>
 </html>
