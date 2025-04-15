@@ -1,0 +1,17 @@
+spring.datasource.url=
+spring.datasource.username=
+spring.datasource.password=
+spring.datasource.driver-class-name=
+
+spring.jpa.properties.hibernate.show_sql=
+spring.jpa.hibernate.ddl-auto=
+
+#server.servlet.session.timeout=
+#server.servlet.session.cookie.max-age=
+
+spring.cloud.aws.credentials.accessKey=
+spring.cloud.aws.credentials.secretKey=
+spring.cloud.aws.s3.bucket=
+spring.cloud.aws.region.static=
+
+server.port=
