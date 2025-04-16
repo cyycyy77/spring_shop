@@ -1,13 +1,16 @@
 package com.apple.shop;
 
+import com.apple.shop.member.JwtFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.ExceptionTranslationFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
@@ -25,29 +28,39 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf((csrf) -> csrf.disable());
 
-
         http.authorizeHttpRequests((authorize) ->
                 authorize.requestMatchers("/**").permitAll()
         );
-        http.formLogin((formLogin)
-                -> formLogin.loginPage("/login")
-                .defaultSuccessUrl("/")
-//                .failureUrl("/fail")
-        );
+
+        // jwt 로그인시 비활성화
+//        http.formLogin((formLogin)
+//                -> formLogin.loginPage("/login")
+//                .defaultSuccessUrl("/")
+//        );
         http.logout(logout -> logout.logoutUrl("/logout") );
 
-//        csrf 기능 켤때 사용
+        // jwt 로그인시
+        http.sessionManagement((session) -> session
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        );
+
+        // jwt 로그인시
+        http.addFilterBefore(new JwtFilter(), ExceptionTranslationFilter.class);
+
+//        csrf 기능 켤때 코드 활성화
 //        http.csrf(csrf -> csrf.csrfTokenRepository(csrfTokenRepository())
 //                .ignoringRequestMatchers("/login")
 //        );
 
         return http.build();
     }
-    //        csrf 기능 켤때 사용
+    //        csrf 기능 켤때 코드 활성화
 //    @Bean
 //    public CsrfTokenRepository csrfTokenRepository() {
 //        HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
 //        repository.setHeaderName("X-XSRF-TOKEN");
 //        return repository;
 //    }
+
+
 }
