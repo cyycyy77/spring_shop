@@ -10,15 +10,11 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
-//    private final MemberDto memberDto;
 
     public void saveMember(String username,
                            String password,
                            String displayName) throws Exception{
-//        var result = memberRepository.findByUsername(username);
-//        if (result.isPresent()){
-//            throw new Exception("존재하는아이디");
-//        }
+
         if (username == null || username.trim().isEmpty()) {
             throw new IllegalArgumentException("아이디를 입력하세요.");
         }
@@ -31,7 +27,8 @@ public class MemberService {
         if (username.length() < 8 || password.length() < 8){
             throw new Exception("너무짧음");
         }
-        var hashPassword = passwordEncoder.encode(password); //dependecy injection
+
+        var hashPassword = passwordEncoder.encode(password);
         Member member = new Member();
         member.setUsername(username);
         member.setPassword(hashPassword);
@@ -39,11 +36,4 @@ public class MemberService {
         memberRepository.save(member);
     }
 
-//    public MemberDto getUser(){
-//        var a = memberRepository.findById(1L);
-//        var result = a.get();
-//        var data = new MemberDto(result.getUsername(), result.getDisplayName()); //db에서 가져온 정보들
-//        var data2 = new MemberDto(result.getUsername(), result.getDisplayName(), result.getId()); //db에서 가져온 정보들
-//        return data;
-//    }
 }
