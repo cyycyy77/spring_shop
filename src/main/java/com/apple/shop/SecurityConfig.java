@@ -26,7 +26,8 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf((csrf) -> csrf.disable());
+        // csrf기능 켤때 코드 비활성화
+//        http.csrf((csrf) -> csrf.disable());
 
         http.authorizeHttpRequests((authorize) ->
                 authorize.requestMatchers("/**").permitAll()
@@ -48,19 +49,19 @@ public class SecurityConfig {
         http.addFilterBefore(new JwtFilter(), ExceptionTranslationFilter.class);
 
 //        csrf 기능 켤때 코드 활성화
-//        http.csrf(csrf -> csrf.csrfTokenRepository(csrfTokenRepository())
-//                .ignoringRequestMatchers("/login")
-//        );
+        http.csrf(csrf -> csrf.csrfTokenRepository(csrfTokenRepository())
+                .ignoringRequestMatchers("/login")
+        );
 
         return http.build();
     }
     //        csrf 기능 켤때 코드 활성화
-//    @Bean
-//    public CsrfTokenRepository csrfTokenRepository() {
-//        HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
-//        repository.setHeaderName("X-XSRF-TOKEN");
-//        return repository;
-//    }
+    @Bean
+    public CsrfTokenRepository csrfTokenRepository() {
+        HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
+        repository.setHeaderName("X-XSRF-TOKEN");
+        return repository;
+    }
 
 
 }
