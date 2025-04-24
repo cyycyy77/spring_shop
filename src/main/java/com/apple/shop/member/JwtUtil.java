@@ -31,7 +31,7 @@ public class JwtUtil {
                 .claim("displayName", user.displayName)
                 .claim("authorities", authorities)
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + 10000))
+                .expiration(new Date(System.currentTimeMillis() + 900000))
                 .signWith(key)
                 .compact();
         return jwt;
