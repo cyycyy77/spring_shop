@@ -4,6 +4,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -75,7 +76,10 @@ public class MemberController {
     @ResponseBody
     public String loginJWT(@RequestBody Map<String, String> data,
                            HttpServletResponse response){
-
+//        try { ''' code '''
+//        } catch (BadCredentialsException e){
+//            return "login.html";
+//        }
         var authToken = new UsernamePasswordAuthenticationToken(
                 data.get("username"), data.get("password")
         );
@@ -91,6 +95,8 @@ public class MemberController {
         response.addCookie(cookie);
 
         return jwt;
+
+//        return "list.html";
     }
 
     @GetMapping("/my-page/jwt")
@@ -113,6 +119,12 @@ public class MemberController {
         System.out.println(user.getPassword());
 
         return "마이페이지 데이터";
+//        if (auth == null){
+//            return "login.html";
+//        }
+//        else {
+//            return "redirect:/";
+//        }
     }
 
 }
