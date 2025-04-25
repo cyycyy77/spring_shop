@@ -26,10 +26,14 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf((csrf) -> csrf.disable());
+        // csrf기능 켤때 코드 비활성화
+//        http.csrf((csrf) -> csrf.disable());
 
+//        로그인·회원가입·JWT 로그인 엔드포인트는 인증 없이 접근 허용
         http.authorizeHttpRequests((authorize) ->
-                authorize.requestMatchers("/**").permitAll()
+                authorize.requestMatchers(
+                        "/**"
+                ).permitAll()
         );
 
         // jwt 로그인시 비활성화
@@ -48,19 +52,20 @@ public class SecurityConfig {
         http.addFilterBefore(new JwtFilter(), ExceptionTranslationFilter.class);
 
 //        csrf 기능 켤때 코드 활성화
-//        http.csrf(csrf -> csrf.csrfTokenRepository(csrfTokenRepository())
-//                .ignoringRequestMatchers("/login")
-//        );
+        http.csrf(csrf -> csrf.csrfTokenRepository(csrfTokenRepository())
+                .ignoringRequestMatchers(
+                        "/login", "/register","/login/jwt","/savemember")
+        );
 
         return http.build();
     }
     //        csrf 기능 켤때 코드 활성화
-//    @Bean
-//    public CsrfTokenRepository csrfTokenRepository() {
-//        HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
-//        repository.setHeaderName("X-XSRF-TOKEN");
-//        return repository;
-//    }
+    @Bean
+    public CsrfTokenRepository csrfTokenRepository() {
+        HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
+        repository.setHeaderName("X-XSRF-TOKEN");
+        return repository;
+    }
 
 
 }
