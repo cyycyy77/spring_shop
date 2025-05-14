@@ -22,10 +22,10 @@ public class MemberService {
             throw new IllegalArgumentException("비밀번호를 입력하세요.");
         }
         if (username.length() > 255) {
-            throw new IllegalArgumentException("제목이 너무 깁니다.");
+            throw new IllegalArgumentException("너무 깁니다.");
         }
         if (username.length() < 8 || password.length() < 8){
-            throw new Exception("너무짧음");
+            throw new IllegalArgumentException("너무짧음");
         }
 
         var hashPassword = passwordEncoder.encode(password);

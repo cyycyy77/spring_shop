@@ -38,15 +38,22 @@
 
     <div>
         <span th:if="${pages > 1}">
-            <a class="btn" th:href="@{ '/list/page/' + ${pages-1} }">이전페이지</a>
+            <a class="btn" th:href="@{ '/list/page/' + ${pages-1} }">◀️</a>
         </span>
 
+<!--        <span th:each="p : ${pageList}">-->
+<!--            <a class="btn" th:href="@{ '/list/page/' + ${p} }" th:text="${p}">page</a>-->
+<!--        </span>-->
         <span th:each="p : ${pageList}">
-            <a class="btn" th:href="@{ '/list/page/' + ${p} }" th:text="${p}">page</a>
+            <a th:if="${p != pages}"
+             th:href="@{ '/list/page/' + ${p} }"
+             th:text="${p}">pages</a>
+            <strong th:if="${p == pages}"
+                  th:text="${p}">current page</strong>
         </span>
 
         <span th:if="${pages < last}">
-            <a class="btn" th:href="@{ '/list/page/' + ${pages+1} }">다음페이지</a>
+            <a class="btn" th:href="@{ '/list/page/' + ${pages+1} }">▶️</a>
         </span>
     </div>
 

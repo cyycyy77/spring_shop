@@ -3,6 +3,7 @@ package com.apple.shop.member;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.thymeleaf.ThymeleafAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
@@ -24,7 +25,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(controllers = MemberController.class)
+@WebMvcTest(controllers = MemberController.class,
+        excludeAutoConfiguration = { ThymeleafAutoConfiguration.class })
 @AutoConfigureMockMvc(addFilters = false)
 class MemberControllerTest {
 
@@ -45,6 +47,23 @@ class MemberControllerTest {
 
     @MockitoBean
     private AuthenticationManager authenticationManager;
+
+    @Test
+    void getRegisterPage_whenNotAuthenticated_thenShowRegisterView() throws Exception {
+        mockMvc.perform(get("/register"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("register.html"));
+    }
+
+    @Test
+    void getLoginPage_whenAuthenticated_thenRedirectToList() throws Exception {
+        Authentication auth = new UsernamePasswordAuthenticationToken(
+                "user1", "", List.of(new SimpleGrantedAuthority("ROLE_USER"))
+        );
+        mockMvc.perform(get("/login").principal(auth))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/list"));
+    }
 
     @Test
     void getLoginPage_whenNotAuthenticated_thenShowLoginView() throws Exception {
