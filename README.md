@@ -3,7 +3,7 @@ Spring Boot를 공부하며, 여러 기능을 담은 쇼핑몰 웹사이트를 �
 
 배포 주소 : http://yoonyoulcodingapplespring1-env.eba-bpzregrh.ap-northeast-2.elasticbeanstalk.com/
 
-### 사용한 언어
+### 사용 언어
 - Java
 - MYSQL
 
@@ -17,4 +17,8 @@ Spring Boot를 공부하며, 여러 기능을 담은 쇼핑몰 웹사이트를 �
 - AWS Elastic Beanstalk
 
 ### 구현한 기능
+- pagnation
+- 검색 기능 (Full Text Index)
+- 세션 로그인
 - JWT 로그인
+- 테스트 코드
