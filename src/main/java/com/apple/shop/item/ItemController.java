@@ -31,7 +31,8 @@ public class ItemController {
     String page(Model model) {
         List<Item> result = itemRepository.findAll();
         model.addAttribute("items", result);
-        return "list.html";
+//        return "list.html";
+        return "redirect:/list/page/1";
     }
 
     @GetMapping("/write")
