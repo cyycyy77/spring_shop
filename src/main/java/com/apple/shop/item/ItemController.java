@@ -62,18 +62,49 @@ public class ItemController {
         return "redirect:/list";
     }
 
-    @GetMapping("/detail/{id}")
-    String detail(@PathVariable Long id, Model model) {
-        Optional<Item> result = itemRepository.findById(id);
-        List<Comment> comment = commentRepository.findByParentId(id);
+//    @GetMapping("/detail/{id}")
+//    String detail(@PathVariable Long id, Model model) {
+//        Optional<Item> result = itemRepository.findById(id);
+//        List<Comment> comment = commentRepository.findByParentId(id);
+//
+//        if (result.isPresent()) {
+//            model.addAttribute("data", result.get());
+//            model.addAttribute("comment", comment);
+//            return "detail.html";
+//        } else {
+//            return "redirect:/list";
+//        }
+//
+//    }
 
-        if (result.isPresent()) {
-            model.addAttribute("data", result.get());
-            model.addAttribute("comment", comment);
-            return "detail.html";
-        } else {
+    @GetMapping("/detail/{id}")
+    String detail(@PathVariable Long id, Model model,
+                  @RequestParam(name="page", required=false, defaultValue="1") Integer page) {
+        Optional<Item> result = itemRepository.findById(id);
+        if (result.isEmpty()){
             return "redirect:/list";
         }
+        model.addAttribute("data", result.get());
+
+        var pageSize = 5;
+        Page<Comment> result2 = commentRepository.findByParentId(id, PageRequest.of(page -1, pageSize));
+        model.addAttribute("id", id);
+        model.addAttribute("comments", result2);
+        model.addAttribute("pages", page);
+
+        Integer totalPage = result2.getTotalPages();
+        model.addAttribute("last", totalPage);
+        List<Integer> pageList = new ArrayList<>();
+        Integer i;
+
+        for(i=1;i<=totalPage;i+=1){
+            pageList.add(i);
+        }
+
+        model.addAttribute("pageList", pageList);
+
+
+        return "detail.html";
 
     }
 

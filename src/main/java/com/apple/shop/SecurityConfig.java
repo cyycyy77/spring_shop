@@ -54,7 +54,8 @@ public class SecurityConfig {
 //        csrf 기능 켤때 코드 활성화
         http.csrf(csrf -> csrf.csrfTokenRepository(csrfTokenRepository())
                 .ignoringRequestMatchers(
-                        "/login", "/register","/login/jwt","/savemember")
+                        "/login", "/register","/login/jwt","/savemember","/edit/item", "/itemsave", "/item", "/commentsave"
+                )
         );
 
         return http.build();
