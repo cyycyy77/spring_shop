@@ -49,6 +49,27 @@ class MemberServiceTest {
     }
 
     @Test
+    void saveMember_nullPassword_throwsException() {
+        assertThatThrownBy(() -> memberService.saveMember("username", null, "Tester"))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("비밀번호를 입력하세요");
+    }
+
+    @Test
+    void saveMember_longUsername_throwsException() {
+        assertThatThrownBy(() -> memberService.saveMember("username".repeat(256/8), "short", "Tester"))
+                .isInstanceOf(Exception.class)
+                .hasMessageContaining("너무 깁니다.");
+    }
+
+    @Test
+    void saveMember_shortUsername_throwsException() {
+        assertThatThrownBy(() -> memberService.saveMember("short", "password", "Tester"))
+                .isInstanceOf(Exception.class)
+                .hasMessageContaining("너무짧음");
+    }
+
+    @Test
     void saveMember_shortPassword_throwsException() {
         assertThatThrownBy(() -> memberService.saveMember("username", "short", "Tester"))
                 .isInstanceOf(Exception.class)
