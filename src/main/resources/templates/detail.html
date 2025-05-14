@@ -48,11 +48,30 @@
 <div class="comments-section">
     <h4>댓글 목록</h4>
     <ul>
-        <li th:each="comment : ${comment}">
+        <li th:each="comment : ${comments}">
             <strong th:text="${comment.username}">작성자</strong> :
             <span th:text="${comment.content}">내용</span>
         </li>
     </ul>
 </div>
+
+<div>
+    <span th:if="${pages > 1}">
+        <a class="btn" th:href="@{ '/detail/' +${id} + '?page=' + ${pages-1}}">◀️</a>
+    </span>
+
+    <span th:each="p : ${pageList}">
+            <a th:if="${p != pages}"
+               th:href="@{ '/detail/' +${id} + '?page=' + ${p} }"
+               th:text="${p}">pages</a>
+            <strong th:if="${p == pages}"
+                    th:text="${p}">current page</strong>
+        </span>
+
+    <span th:if="${pages < last}">
+            <a class="btn" th:href="@{ '/detail/' +${id} + '?page=' + ${pages+1} }">▶️</a>
+        </span>
+</div>
+
 </body>
 </html>
