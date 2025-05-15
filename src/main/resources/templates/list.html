@@ -25,14 +25,18 @@
             <a th:href="@{ '/detail/' + ${i.id} } ">링크</a>
             <p th:text="${i.price}">가격</p>
             <p th:text="${i.userid}">유저아이디</p>
-            <a th:href="@{ '/edit/' + ${i.id} }">✏️</a>
 
-            <span th:onclick="fetch('/item?id=[[${i.id}]]', { method : 'DELETE' })
-                .then(r=>r.text())
-                .then(() => {
-                    location.reload();
-                })
-                ">🗑️</span>
+            <div sec:authorize="hasAuthority('관리자')">
+                <a th:href="@{ '/edit/' + ${i.id} }">✏️</a>
+
+                <span th:onclick="fetch('/item?id=[[${i.id}]]', { method : 'DELETE' })
+                    .then(r=>r.text())
+                    .then(() => {
+                        location.reload();
+                    })
+                    ">🗑️</span>
+            </div>
+
         </div>
     </div>
 
