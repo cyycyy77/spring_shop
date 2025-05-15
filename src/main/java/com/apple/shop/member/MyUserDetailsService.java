@@ -28,6 +28,10 @@ public class MyUserDetailsService implements UserDetailsService {
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority("일반유저"));
 
+        if ("idid".equalsIgnoreCase(username)){
+            authorities.add(new SimpleGrantedAuthority("관리자"));
+        }
+
         var a = new CustomUser(user.getUsername(), user.getPassword(), authorities);
         a.displayName = user.getDisplayName();
         a.id = user.getId();
