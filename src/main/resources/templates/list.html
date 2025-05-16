@@ -1,5 +1,8 @@
 <!doctype html>
 <html lang="en">
+<!--<html lang="en"-->
+<!--      xmlns:th="http://www.thymeleaf.org"-->
+<!--      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -18,7 +21,8 @@
         <button>검색</button>
     </form>
 
-    <div class="card" th:each="i : ${items}">
+<!--    <div class="card" th:each="i : ${items}">-->
+    <div class="card" th:each="i : ${items.content}">
         <img th:src="${(i.imgUrl != null and !#strings.isEmpty(i.imgUrl)) ? i.imgUrl : 'https://placehold.co/300'}">
         <div>
             <h4 th:text="${i.title}" >제목</h4>
@@ -26,7 +30,15 @@
             <p th:text="${i.price}">가격</p>
             <p th:text="${i.userid}">유저아이디</p>
 
+<!--            <div sec:authorize="hasAuthority('관리자') or #authentication.name == i.userid">-->
+<!--            <div th:if="${i.userid == #authentication.name} or ${#authorization.hasAuthority('관리자')}">-->
+<!--            <div th:if="-->
+<!--      ${#authorization.expression.hasAnyAuthority('관리자')}-->
+<!--      or-->
+<!--      ${i.userid == #authentication.name}-->
+<!--    ">-->
             <div sec:authorize="hasAuthority('관리자')">
+
                 <a th:href="@{ '/edit/' + ${i.id} }">✏️</a>
 
                 <span th:onclick="fetch('/item?id=[[${i.id}]]', { method : 'DELETE' })
@@ -35,6 +47,17 @@
                         location.reload();
                     })
                     ">🗑️</span>
+            </div>
+
+            <div th:if="${i.userid == #authentication.name}">
+                <a th:href="@{ '/edit/' + ${i.id} }">✏️</a>
+
+                <span th:onclick="fetch('/item?id=[[${i.id}]]', { method : 'DELETE' })
+                            .then(r=>r.text())
+                            .then(() => {
+                                location.reload();
+                            })
+                            ">🗑️</span>
             </div>
 
         </div>
