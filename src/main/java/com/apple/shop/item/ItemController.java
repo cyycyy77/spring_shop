@@ -2,6 +2,7 @@ package com.apple.shop.item;
 
 import com.apple.shop.comment.Comment;
 import com.apple.shop.comment.CommentRepository;
+import com.apple.shop.member.MemberRepository;
 import com.apple.shop.sales.SalesRepository;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.engine.jdbc.Size;
@@ -26,6 +27,7 @@ public class ItemController {
     private final ItemService itemService;
     private final S3Service s3Service;
     private final CommentRepository commentRepository;
+    private final MemberRepository memberRepository;
 
     @GetMapping("/list")
     String page(Model model) {
@@ -79,6 +81,7 @@ public class ItemController {
 
     @GetMapping("/detail/{id}")
     String detail(@PathVariable Long id, Model model,
+                  Authentication auth,
                   @RequestParam(name="page", required=false, defaultValue="1") Integer page) {
         Optional<Item> result = itemRepository.findById(id);
         if (result.isEmpty()){
@@ -103,6 +106,10 @@ public class ItemController {
 
         model.addAttribute("pageList", pageList);
 
+//        var login_userId = auth.getName();
+//        model.addAttribute("login_user", login_userId);
+//        var userId = memberRepository.findById(Long.valueOf(result.get().getUserid()));
+//        model.addAttribute("item_user", userId);
 
         return "detail.html";
 
