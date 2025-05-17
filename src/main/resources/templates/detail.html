@@ -64,6 +64,17 @@
                         ">🗑️</span>
             </div>
 
+            <div th:if="${comment.username == #authentication.name}">
+                <a th:href="@{ '/edit/comment/' + ${comment.id} }">✏️</a>
+
+                <span th:onclick="fetch('/comment?id=[[${comment.id}]]', { method : 'DELETE' })
+                        .then(r=>r.text())
+                        .then(() => {
+                            location.reload();
+                        })
+                        ">🗑️</span>
+            </div>
+
         </li>
     </ul>
 </div>
