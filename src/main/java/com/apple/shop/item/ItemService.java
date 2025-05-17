@@ -46,7 +46,9 @@ public class ItemService {
 
     public void editItem(@RequestParam Long id,
                          @RequestParam String title,
+                         @RequestParam String username,
                          @RequestParam Integer price,
+                         @RequestParam String imgUrl,
                          @RequestParam Integer count) {
         if (title == null || title.trim().isEmpty()) {
             throw new IllegalArgumentException("제목을 입력하세요.");
@@ -60,7 +62,9 @@ public class ItemService {
         var item = new Item();
         item.setId(id);
         item.setTitle(title);
+        item.setUserid(username);
         item.setPrice(price);
+        item.setImgUrl(imgUrl);
         item.setCount(count);
         itemRepository.save(item);
     }

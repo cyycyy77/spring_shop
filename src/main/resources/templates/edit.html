@@ -15,7 +15,9 @@
 <form action="/edit/item" method="POST">
     <input type="hidden" name="id" th:value="${data.id}">
     <input name="title" th:value="${data.title}">
+    <input type="hidden" name="username" th:value="${data.userid}">
     <input name="price" th:value="${data.price}">
+    <input type="hidden" name="imgUrl" th:value="${data.imgUrl}">
     <input name="count" type="number" min="0" max="10" step="1" th:value="${data.count}">
     <button type="submit">전송</button>
 </form>

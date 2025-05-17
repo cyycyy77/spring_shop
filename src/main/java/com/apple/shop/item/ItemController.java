@@ -131,10 +131,12 @@ public class ItemController {
     @PostMapping("/edit/item")
     public String editItem(@RequestParam Long id,
                            @RequestParam String title,
+                           @RequestParam String username,
                            @RequestParam Integer price,
+                           @RequestParam String imgUrl,
                            @RequestParam Integer count) {
 
-        itemService.editItem(id, title, price, count);
+        itemService.editItem(id, title, username, price, imgUrl, count);
         return "redirect:/list";
     }
 
