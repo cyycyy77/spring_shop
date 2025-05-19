@@ -6,6 +6,7 @@
     <div sec:authorize="isAuthenticated()">
         <a sec:authentication="principal.username"></a>
         <a href="/write">Write</a>
+        <a href="/my-page">MyPage</a>
         <a href="/logout">Logout</a>
     </div>
 

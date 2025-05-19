@@ -15,8 +15,14 @@
 <h4>마이페이지</h4>
 <div sec:authentication="principal"></div>
 <div sec:authentication="principal.username"></div>
+
+<h4>역할</h4>
 <div sec:authorize="hasAuthority('일반유저')">
-    <h4>일반유저임</h4>
+    <h5>일반유저</h5>
+</div>
+
+<div sec:authorize="hasAuthority('관리자')">
+    <h5>관리자</h5>
 </div>
 
 <div sec:authorize="isAuthenticated()">
@@ -26,6 +32,33 @@
 <div sec:authorize="isAnonymous()">
     <h4>로그아웃되어있음</h4>
 </div>
+
+<!--<h4>올린 상품</h4>-->
+<!--<div class="card" th:each="i : ${items}">-->
+<!--    <div>-->
+<!--        <h4 th:text="${i.title}" >제목</h4>-->
+<!--        <a th:href="@{ '/detail/' + ${i.id} } ">링크</a>-->
+<!--    </div>-->
+<!--</div>-->
+<details>
+    <summary>올린 상품</summary>
+    <div class="card" th:each="i : ${items}">
+        <div>
+            <h4 th:text="${i.title}" >제목</h4>
+            <a th:href="@{ '/detail/' + ${i.id} } ">링크</a>
+        </div>
+    </div>
+</details>
+
+<details>
+    <summary>작성한 댓글</summary>
+    <div class="card" th:each="c : ${comments}">
+        <div>
+            <h4 th:text="${c.content}" >댓글내용</h4>
+            <a th:href="@{ '/detail/' + ${c.parentId} } ">링크</a>
+        </div>
+    </div>
+</details>
 
 </body>
 </html>

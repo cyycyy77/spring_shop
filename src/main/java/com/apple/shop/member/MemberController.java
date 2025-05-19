@@ -1,5 +1,9 @@
 package com.apple.shop.member;
 
+import com.apple.shop.comment.Comment;
+import com.apple.shop.comment.CommentRepository;
+import com.apple.shop.item.Item;
+import com.apple.shop.item.ItemRepository;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -14,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.LongFunction;
@@ -26,6 +31,8 @@ public class MemberController {
     private final PasswordEncoder passwordEncoder;
     private final MemberService memberService;
     public final AuthenticationManagerBuilder authenticationManagerBuilder;
+    private final ItemRepository itemRepository;
+    private final CommentRepository commentRepository;
 
     @GetMapping("/register")
     public String signup_login_version(Authentication auth) {
@@ -56,10 +63,24 @@ public class MemberController {
         return "login.html";
     }
 
+//    @GetMapping("/my-page")
+//    public String myPage(Authentication auth){
+//        CustomUser result = (CustomUser) auth.getPrincipal();
+//        System.out.println(result.displayName);
+//        return "mypage.html";
+//    }
+
     @GetMapping("/my-page")
-    public String myPage(Authentication auth){
+    public String myPage(Authentication auth,
+                         Model model){
         CustomUser result = (CustomUser) auth.getPrincipal();
         System.out.println(result.displayName);
+
+        List<Item> result2 = itemRepository.findByUserid(auth.getName());
+        model.addAttribute("items", result2);
+
+        List<Comment> result3 = commentRepository.findByUsername(auth.getName());
+        model.addAttribute("comments", result3);
         return "mypage.html";
     }
 
