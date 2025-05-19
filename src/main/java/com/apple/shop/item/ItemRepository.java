@@ -21,4 +21,6 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     //native query는 쌩으로 query문 짜도록 해주는 거구나
     //against가 full text query
     //괄호 안의 parameter(text)가 Query의 ?1 자리에 들어간다.
+
+    List<Item> findByUserid(String userid);
 }
