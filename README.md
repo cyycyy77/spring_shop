@@ -35,7 +35,6 @@ Spring Boot를 공부하며, 여러 기능을 담은 Spring Boot 기반의 쇼�
 ### 3. 댓글 시스템 (comment 패키지)
 - 특정 상품에 대한 댓글 CRUD  
 - **페이지네이션** 지원  
-- `parentId` 기반 대댓글(쓰레드) 구조 설계  
 - `CommentController` / `CommentService` → 댓글 등록·삭제·조회  
 
 ### 4. 판매 이력 관리 (sales 패키지)
@@ -45,18 +44,6 @@ Spring Boot를 공부하며, 여러 기능을 담은 Spring Boot 기반의 쇼�
 - `SalesController` / `SalesService` → RESTful 판매 API  
 
 ---
-### 사용 언어
-- Java
-- MYSQL
-
-### 사용한 프레임워크
-- spring boot
-
-### 사용한 Database
-- Microsoft Azure
-
-### 배포 환경
-- AWS Elastic Beanstalk
 
 <!--
 ### 구현한 기능
@@ -68,3 +55,32 @@ Spring Boot를 공부하며, 여러 기능을 담은 Spring Boot 기반의 쇼�
 -->
 
 ## 📂 패키지 구조
+com.apple.shop
+├── member // 사용자(JWT, 인증/인가, 프로필)
+├── item // 상품(CRUD, 이미지 업로드, 검색, 페이징)
+├── comment // 댓글(쓰기, 조회, 삭제, 대댓글, 페이징)
+└── sales // 판매 이력(기록, 조회, 통계)
+
+---
+
+## 🛠 기술 스택
+
+- **Spring Boot 3.4**  
+- **Spring Security 6** + **JWT**  
+- **Thymeleaf** (Spring MVC 템플릿)  
+- **Spring Data JPA** (Hibernate)  
+- **MySQL** (또는 H2)  
+- **AWS S3** (프라이빗 버킷 + Presigned URL)  
+- **Lombok**, **MapStruct** 등  
+
+---
+
+### 사용 언어
+- Java
+- MYSQL
+
+### Database
+- Microsoft Azure
+
+### 배포 환경
+- AWS Elastic Beanstalk
