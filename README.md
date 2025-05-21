@@ -56,6 +56,7 @@ Spring Boot를 공부하며, 여러 기능을 담은 Spring Boot 기반의 쇼�
 
 ## 📂 패키지 구조
 com.apple.shop
+
 ├── member // 사용자(JWT, 인증/인가, 프로필)
 
 ├── item // 상품(CRUD, 이미지 업로드, 검색, 페이징)
