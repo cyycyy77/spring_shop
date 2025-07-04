@@ -81,7 +81,11 @@ com.apple.shop
 - MYSQL
 
 ### Database
-- Microsoft Azure
+- MySQL
+- Hosting: Microsoft Azure
+
+### Storage
+- AWS S3 (Presigned URL)
 
 ### 배포 환경
 - AWS Elastic Beanstalk
