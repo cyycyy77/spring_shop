@@ -37,24 +37,26 @@ public class SecurityConfig {
         );
 
         // jwt 로그인시 비활성화
-//        http.formLogin((formLogin)
-//                -> formLogin.loginPage("/login")
-//                .defaultSuccessUrl("/")
-//        );
-        http.logout(logout -> logout.logoutUrl("/logout") );
-
-        // jwt 로그인시
-        http.sessionManagement((session) -> session
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        http.formLogin((formLogin)
+                -> formLogin.loginPage("/login")
+                .defaultSuccessUrl("/")
         );
 
-        // jwt 로그인시
-        http.addFilterBefore(new JwtFilter(), ExceptionTranslationFilter.class);
+        // 로그아웃
+        http.logout(logout -> logout.logoutUrl("/logout") );
+
+        // jwt 로그인시 활성화
+//        http.sessionManagement((session) -> session
+//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//        );
+//
+//        // jwt 로그인시 활성화
+//        http.addFilterBefore(new JwtFilter(), ExceptionTranslationFilter.class);
 
 //        csrf 기능 켤때 코드 활성화
 //        http.csrf(csrf -> csrf.csrfTokenRepository(csrfTokenRepository())
 //                .ignoringRequestMatchers(
-//                        "/login", "/register","/login/jwt","/savemember","/edit/item", "/itemsave", "/item", "/commentsave", "/edit/comment", "/comment"
+//                        "/login", "/logout", "/register","/login/jwt","/savemember","/edit/item", "/itemsave", "/item", "/commentsave", "/edit/comment", "/comment"
 //                )
 //        );
 
