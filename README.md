@@ -55,16 +55,13 @@ Spring Boot를 공부하며, 여러 기능을 담은 Spring Boot 기반의 쇼�
 -->
 
 ## 📂 패키지 구조
+```text
 com.apple.shop
-
 ├── member // 사용자(JWT, 인증/인가, 프로필)
-
 ├── item // 상품(CRUD, 이미지 업로드, 검색, 페이징)
-
 ├── comment // 댓글(쓰기, 조회, 삭제, 대댓글, 페이징)
-
 └── sales // 판매 이력(기록, 조회, 통계)
-
+```
 ---
 
 ## 🛠 기술 스택
@@ -84,7 +81,11 @@ com.apple.shop
 - MYSQL
 
 ### Database
-- Microsoft Azure
+- MySQL
+- Hosting: Microsoft Azure
+
+### Storage
+- AWS S3 (Presigned URL)
 
 ### 배포 환경
 - AWS Elastic Beanstalk
