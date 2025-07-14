@@ -1,91 +1,56 @@
-## Spring을 이용한 쇼핑몰 웹사이트
-Spring Boot를 공부하며, 여러 기능을 담은 Spring Boot 기반의 쇼핑몰 웹사이트 제작 및 배포
+# 🛍️ Spring Boot 쇼핑몰 프로젝트
 
-배포 주소 : http://yoonyoulcodingapplespring1-env.eba-bpzregrh.ap-northeast-2.elasticbeanstalk.com/
+Spring Boot, Spring Security, JPA, Thymeleaf를 사용하여 개발한 기능이 풍부한 쇼핑몰 웹 애플리케이션입니다. 사용자 인증부터 상품 관리, 주문, 댓글 기능까지 실제 서비스에 필요한 핵심 기능들을 구현하고 AWS에 배포했습니다.
 
----
-
-## 🚀 프로젝트 개요
-
-- **Spring Boot 3.4**, **Java 17**, **Spring Security 6**와 **JWT**를 이용한 인증/인가  
-- 서버사이드 렌더링을 위한 **Thymeleaf**  
-- 데이터 영속화: **Spring Data JPA** + **Hibernate**  
-- 이미지 저장: **AWS S3** → Presigned URL 방식  
-- RESTful API + HTML 뷰 동시 지원  
+**🔗 배포 주소:** [http://yoonyoulcodingapplespring1-env.eba-bpzregrh.ap-northeast-2.elasticbeanstalk.com/](http://yoonyoulcodingapplespring1-env.eba-bpzregrh.ap-northeast-2.elasticbeanstalk.com/)
 
 ---
 
-## 🌟 주요 기능
+## ✨ 주요 기능
 
-### 1. 사용자 관리 (member 패키지)
-- 회원 가입 / 로그인  
-- **JWT** 발급·검증 (`JwtUtil`, `JwtFilter`)  
-- 비밀번호 암호화 (BCrypt)  
-- `CustomUser` / `MyUserDetailsService`로 Spring Security 연동  
-- `MemberController`를 통한 프로필 조회, 사용자 정보 수정  
+### 👤 사용자 관리 (Member)
+- **회원가입:** 아이디, 비밀번호, 닉네임을 입력받아 새로운 사용자를 등록합니다.
+    - **유효성 검사:** 아이디, 비밀번호 길이 및 중복 여부를 검사합니다.
+    - **비밀번호 암호화:** `BCryptPasswordEncoder`를 사용하여 비밀번호를 안전하게 해싱하여 저장합니다.
+- **로그인:** 세션 기반 로그인과 JWT 토큰 기반 로그인을 모두 지원합니다.
+    - **Spring Security:** `UserDetailsService`를 커스텀하여 DB와 연동된 인증을 처리합니다.
+    - **JWT:** 로그인 성공 시 JWT를 생성하여 쿠키에 저장하고, 이후 요청에서는 `JwtFilter`를 통해 토큰을 검증하여 사용자를 인증합니다.
+- **마이페이지:** 로그인한 사용자는 자신이 작성한 게시글과 댓글 목록을 확인할 수 있습니다.
+- **권한 관리:** 일반 사용자와 관리자(`admin`) 권한을 구분하여 특정 기능에 대한 접근을 제어합니다.
 
-### 2. 상품 관리 (item 패키지)
-- 상품 등록 / 조회 / 수정 / 삭제  
-- 작성자(user)·관리자(admin) 권한 기반 접근 제어  
-- **페이징** (`PageRequest`) 및 **검색** 기능  
-- 이미지 업로드: 프런트에서 S3 Presigned URL 요청 → 직접 PUT  
-- `S3Service`로 Presigned URL 생성  
-- 상세 페이지, 목록 페이지, 검색 결과 페이지 제공  
+### 📦 상품 관리 (Item)
+- **상품 CRUD 및 권한 관리:** 사용자는 상품을 등록, 조회, 수정, 삭제할 수 있습니다.
+    - **작성자 기반 권한:** 상품 등록 시 작성자 정보(`userid`)가 함께 저장됩니다. 상품 수정 및 삭제는 해당 상품을 등록한 사용자 또는 관리자(`admin`) 권한을 가진 사용자만 가능하도록 서버에서 확인합니다.
+    - **데이터 유효성 검사:** 상품명 길이, 가격의 양수 여부 등 비즈니스 로직에 따른 제약 조건을 적용합니다.
+- **이미지 업로드:** **AWS S3 Presigned URL**을 사용하여 클라이언트가 서버를 거치지 않고 직접 S3에 이미지를 업로드하도록 구현했습니다.
+    - `S3Service`에서 업로드할 파일 이름으로 Presigned URL을 생성하여 클라이언트에 전달합니다.
+    - 클라이언트는 해당 URL로 `PUT` 요청을 보내 이미지를 업로드합니다.
+- **상품 목록 조회:**
+    - **페이징:** `Pageable`을 사용하여 상품 목록을 페이지 단위로 조회합니다.
+    - **검색:** 상품명에 대해 **Full-text Search**를 지원하여 빠르고 정확한 검색이 가능합니다. (`MATCH ... AGAINST` 쿼리 사용)
+- **상품 상세 조회:** 특정 상품의 상세 정보와 함께 해당 상품에 달린 댓글 목록을 함께 조회합니다.
 
-### 3. 댓글 시스템 (comment 패키지)
-- 특정 상품에 대한 댓글 CRUD  
-- **페이지네이션** 지원  
-- `CommentController` / `CommentService` → 댓글 등록·삭제·조회  
+### 💬 댓글 관리 (Comment)
+- **댓글 CRUD:** 로그인한 사용자는 특정 상품에 대해 댓글을 작성, 수정, 삭제할 수 있습니다.
+- **페이징:** 특정 게시글의 댓글이 많을 경우를 대비하여 댓글 목록을 페이지 단위로 조회합니다.
+- **권한 확인:** 댓글 수정 및 삭제는 작성자 본인만 가능하도록 서버에서 권한을 확인합니다.
 
-### 4. 판매 이력 관리 (sales 패키지)
-- 판매 내역 기록 (상품, 수량, 판매가 등)  
-- 사용자별/상품별 판매 통계 조회  
-- `SalesDto`를 통한 데이터 전송  
-- `SalesController` / `SalesService` → RESTful 판매 API  
+### 🛒 주문 관리 (Sales)
+- **상품 주문 및 트랜잭션 관리:** 사용자가 상품 상세 페이지에서 수량을 선택하여 상품을 주문할 수 있습니다.
+    - **동시성 제어:** 주문 시 상품 재고를 확인하고, 주문 수량만큼 재고를 차감하는 과정을 하나의 트랜잭션(`@Transactional`)으로 묶어 처리합니다. 이를 통해 여러 사용자가 동시에 주문하더라도 데이터의 정합성을 보장하고, 재고가 중복으로 차감되는 문제를 방지합니다.
+    - **주문 내역 기록:** 주문 성공 시 `Sales` 테이블에 주문 정보를 기록하고, 어떤 사용자가 주문했는지 `Member`와 연관 관계를 맺어 관리합니다.
+- **주문 목록 조회:** 관리자는 전체 사용자의 주문 내역을 조회할 수 있습니다.
 
----
-
-<!--
-### 구현한 기능
-- pagnation
-- 검색 기능 (Full Text Index)
-- 세션 로그인
-- JWT 로그인
-- 테스트 코드
--->
-
-## 📂 패키지 구조
-```text
-com.apple.shop
-├── member // 사용자(JWT, 인증/인가, 프로필)
-├── item // 상품(CRUD, 이미지 업로드, 검색, 페이징)
-├── comment // 댓글(쓰기, 조회, 삭제, 대댓글, 페이징)
-└── sales // 판매 이력(기록, 조회, 통계)
-```
 ---
 
 ## 🛠 기술 스택
 
-- **Spring Boot 3.4**  
-- **Spring Security 6** + **JWT**  
-- **Thymeleaf** (Spring MVC 템플릿)  
-- **Spring Data JPA** (Hibernate)  
-- **MySQL** (또는 H2)  
-- **AWS S3** (프라이빗 버킷 + Presigned URL)  
-- **Lombok**, **MapStruct** 등  
+| 구분 | 기술 |
+| --- | --- |
+| **Backend** | Spring Boot 3.4.3, Spring Security 6, Spring Data JPA, Hibernate, JWT |
+| **Frontend** | Thymeleaf, HTML, CSS, JavaScript |
+| **Database** | MySQL |
+| **Deployment** | AWS Elastic Beanstalk, AWS S3 |
+| **Language** | Java |
 
 ---
-
-### 사용 언어
-- Java
-- MYSQL
-
-### Database
-- MySQL
-- Hosting: Microsoft Azure
-
-### Storage
-- AWS S3 (Presigned URL)
-
-### 배포 환경
-- AWS Elastic Beanstalk
