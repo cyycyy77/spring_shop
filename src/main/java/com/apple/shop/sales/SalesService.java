@@ -27,11 +27,17 @@ public class SalesService {
         Optional<Item> result = itemRepository.findById(id);
         if (result.isPresent()){
             var item = result.get();
-            item.setCount(item.getCount()-count);
-            itemRepository.save(item);
-        }
 
-        if (result.get().getCount() < 0){
+            if (item.getCount() == null) {
+                throw new RuntimeException("상품 재고를 확인할 수 없음");
+                }
+
+            if (item.getCount() < count) {
+                throw new RuntimeException("수량이 부족함");
+            }
+            item.setCount(item.getCount() - count);
+            itemRepository.save(item);
+        } else {
             throw new RuntimeException("수량이 부족함");
         }
 
