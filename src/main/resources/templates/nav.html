@@ -16,4 +16,8 @@
         <a href="/register">Register</a>
     </div>
 
+    <div sec:authorize="hasAuthority('관리자')">
+        <a th:href="@{ '/order/all' }">주문 리스트</a>
+    </div>
+
 </div>
