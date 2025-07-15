@@ -13,10 +13,10 @@
 <div th:replace="~{ nav.html::navbar }"></div>
 
 <form action="/itemsave" method="POST">
-    <input name="title">
-    <input name="price">
+    <input name="title" placeholder="상품 제목">
+    <input name="price" placeholder="상품 가격">
     <input type="hidden" name="imgUrl" id="imgUrl">
-    <input name="count">
+    <input name="count" placeholder="상품 수량">
     <button type="submit">전송</button>
 </form>
 

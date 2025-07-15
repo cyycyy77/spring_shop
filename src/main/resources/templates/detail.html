@@ -25,7 +25,7 @@
     <form action="/order" method="POST">
         <input style="display:none" name="itemName" th:value="${data.title}">
         <input style="display:none" name="price" th:value="${data.price}">
-        <input name="count" type="number" min="0" max="10" step="1">
+        <input name="count" type="number" min="0" max="10" step="1" placeholder="수량">
         <input style="display:none" name="id" th:value="${data.id}">
         <button type="submit">구매</button>
     </form>
