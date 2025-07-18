@@ -14,7 +14,7 @@ Spring Boot, Spring Security, JPA, Thymeleaf를 사용하여 개발한 기능이
   - **유효성 검사:** 아이디, 비밀번호 길이 및 중복 여부를 검사합니다.
 
   - **비밀번호 암호화:** `BCryptPasswordEncoder`를 사용하여 비밀번호를 안전하게 해싱하여 저장합니다.
-- **로그인:** 세션 기반 로그인과 JWT 토큰 기반 로그인을 모두 지원합니다.
+- **로그인:** 세션 기반 로그인과 JWT 토큰 기반 로그인을 모두 구현. (현재 배포 버전 : 세션 기반 로그인)
 
   - **Spring Security:** `UserDetailsService`를 커스텀하여 DB와 연동된 인증을 처리합니다.
 
