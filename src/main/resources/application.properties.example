@@ -14,4 +14,6 @@ spring.cloud.aws.credentials.secretKey=
 spring.cloud.aws.s3.bucket=
 spring.cloud.aws.region.static=
 
+server.error.include-message=
+
 server.port=
