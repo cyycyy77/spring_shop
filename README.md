@@ -1,6 +1,6 @@
 # 🛍️ Spring Boot 쇼핑몰 프로젝트
 
-Spring Boot, Spring Security, JPA, Thymeleaf를 사용하여 개발한 기능이 풍부한 쇼핑몰 웹 애플리케이션입니다. 사용자 인증부터 상품 관리, 주문, 댓글 기능까지 실제 서비스에 필요한 핵심 기능들을 구현하고 AWS에 배포했습니다.
+Spring Boot, Spring Security, JPA, Thymeleaf를 사용하여 개발한 쇼핑몰 웹 애플리케이션입니다. 사용자 인증부터 상품 관리, 주문, 댓글 기능까지 실제 서비스에 필요한 핵심 기능들을 구현하고 AWS에 배포했습니다.
 
 **🔗 배포 주소:** [http://yoonyoulcodingapplespring1-env.eba-bpzregrh.ap-northeast-2.elasticbeanstalk.com/](http://yoonyoulcodingapplespring1-env.eba-bpzregrh.ap-northeast-2.elasticbeanstalk.com/)
 
