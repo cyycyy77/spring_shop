@@ -39,7 +39,7 @@ public class MemberController {
         if (auth == null) {
             return "register.html";
         } else if (auth.isAuthenticated() == true){
-            return "redirect:/list";
+            return "redirect:/";
         }
         return "register.html";
     }
@@ -50,7 +50,7 @@ public class MemberController {
                              @RequestParam String displayName) throws Exception{
 
         memberService.saveMember(username, password, displayName);
-        return "redirect:/list";
+        return "redirect:/";
     }
 
     @GetMapping("/login")
