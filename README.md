@@ -6,6 +6,32 @@ Spring Boot, Spring Security, JPA, Thymeleaf를 사용하여 개발한 쇼핑몰
 
 ---
 
+## 기능 한눈에 보기
+
+**메인페이지**
+![메인페이지](docs/media/mainpage_logout.png)
+![메인페이지](docs/media/mainpage_login.png)
+
+**로그인 및 회원가입**
+![로그인](docs/media/springshop_login.gif)
+![회원가입](docs/media/springshop_register.gif)
+
+**검색**
+![검색](docs/media/springshop_search.gif)
+
+**상품 등록 및 상품 수정**
+![상품 등록](docs/media/springshop_write.gif)
+![상품 정보 수정](docs/media/springshop_edit.gif)
+
+**구매 및 댓글 작성**
+![구매](docs/media/springshop_order.gif)
+![댓글](docs/media/springshop_comment.gif)
+
+**pagnation**
+![pagnation](docs/media/springshop_pagnation.gif)
+
+---
+
 ## ✨ 주요 기능
 
 ### 👤 사용자 관리 (Member)
