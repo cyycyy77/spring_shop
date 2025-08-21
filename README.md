@@ -13,22 +13,22 @@ Spring Boot, Spring Security, JPA, Thymeleaf를 사용하여 개발한 쇼핑몰
 ![메인페이지](docs/media/mainpage_login.png)
 
 **로그인 및 회원가입**
-![로그인](docs/media/springshop_login.gif)
-![회원가입](docs/media/springshop_register.gif)
+![로그인](docs/media/login.gif)
+![회원가입](docs/media/register.gif)
 
 **검색**
-![검색](docs/media/springshop_search.gif)
+![검색](docs/media/search.gif)
 
 **상품 등록 및 상품 수정**
-![상품 등록](docs/media/springshop_write.gif)
-![상품 정보 수정](docs/media/springshop_edit.gif)
+![상품 등록](docs/media/write.gif)
+![상품 정보 수정](docs/media/edit.gif)
 
 **구매 및 댓글 작성**
-![구매](docs/media/springshop_order.gif)
-![댓글](docs/media/springshop_comment.gif)
+![구매](docs/media/order.gif)
+![댓글](docs/media/comment.gif)
 
 **pagnation**
-![pagnation](docs/media/springshop_pagnation.gif)
+![pagnation](docs/media/pagnation.gif)
 
 ---
 
