@@ -8,10 +8,6 @@ Spring Boot, Spring Security, JPA, Thymeleaf를 사용하여 개발한 쇼핑몰
 
 ## 기능 한눈에 보기
 
-**메인페이지**
-![메인페이지](docs/media/mainpage_logout.png)
-![메인페이지](docs/media/mainpage_login.png)
-
 **로그인 및 회원가입**
 ![로그인](docs/media/login.gif)
 ![회원가입](docs/media/register.gif)
