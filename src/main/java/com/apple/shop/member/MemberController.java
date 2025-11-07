@@ -74,7 +74,7 @@ public class MemberController {
     public String myPage(Authentication auth,
                          Model model){
         CustomUser result = (CustomUser) auth.getPrincipal();
-        System.out.println(result.displayName);
+//        System.out.println(result.displayName);
 
         List<Item> result2 = itemRepository.findByUserid(auth.getName());
         model.addAttribute("items", result2);
